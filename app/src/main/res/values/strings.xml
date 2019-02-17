@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">NewsViews</string>
+    <string name="next">NEXT</string>
+    <string name="finish">FINISH</string>
+    <string name="skip">SKIP</string>
+    <string name="walking">Walking</string>
+    <string name="walking_desc">Go for a walk after meal for better digestion</string>
+    <string name="cycling">Cycling</string>
+    <string name="cycling_desc">if you can\'t run, can\'t walk, then atleat rotate your legs</string>
+    <string name="fit">Become FIT</string>
+    <string name="fit_desc">Do either of the earlier and get a body like this</string>
+    <string name="swimming">Swimming</string>
+    <string name="swimming_desc">Explore the world under water with swimming</string>
+    <string name="running">Running</string>
+    <string name="running_desc">Daily running keeps body in shape and inrease stamina</string>
+    <string name="my_name">Mahbub Munna</string>
+    <string name="my_word">Hey Dear. I am an android developer. Its a pleasure to meet you</string>
+    <string name="my_view_title">What I Think</string>
+    <string name="my_view_detail">I know you are gonna love me. Thats why I am eager to meet you</string>
+    <string name="app_description">A pet project for Rokomari.com</string>
+    <string name="skip_button_text">Skip</string>
+    <string name="next_button_text">Next</string>
 </resources>
