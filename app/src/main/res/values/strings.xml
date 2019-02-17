@@ -15,4 +15,6 @@
     <string name="nav_menu_exit">Exit</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">any date or number ex.- 2/9/19 or 7</string>
 </resources>
