@@ -10,4 +10,6 @@
     <dimen name="screen_desc">16dp</dimen>
     <dimen name="desc_padding">40dp</dimen>
     <dimen name="content_margin">16dp</dimen>
+
+    <dimen name="text_email_small">12sp</dimen>
 </resources>

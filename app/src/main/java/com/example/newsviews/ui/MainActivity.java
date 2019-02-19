@@ -14,22 +14,41 @@ import androidx.fragment.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.newsviews.R;
 import com.example.newsviews.databinding.ActivityMainBinding;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
+    private static final int RC_SIGN_IN = 100;
     ActivityMainBinding mainBinding;
     private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Firing Sign Up
+        fireSignUp();
+        //Setting content view (The main UI) through data binding
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         // Setting the new toolbar over action bar
@@ -44,6 +63,67 @@ public class MainActivity extends AppCompatActivity{
 
         //Start the application with default home fragment
         if (savedInstanceState == null) startHomeFragment();
+
+    }
+
+
+    //Checks for internet
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
+    }
+
+    //Firing up FireBase Auth UI
+    private void fireSignUp() {
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                    new AuthUI.IdpConfig.GoogleBuilder().build(),
+                    new AuthUI.IdpConfig.FacebookBuilder()
+                            .build());
+
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(providers)
+                            .setTheme(R.style.AppTheme)
+                            .setLogo(R.drawable.news_views_144dp)
+                            .build(),
+                    RC_SIGN_IN);
+    }
+
+    //Taking back the Result from FireBase Auth UI
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+            TextView userName = findViewById(R.id.userNameText);
+            TextView userEmail = findViewById(R.id.userEmailText);
+            ImageView userImage = findViewById(R.id.userImageView);
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                populateHeaderView(userName, userEmail);
+
+                // ...
+            } else {
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+                // ...
+                populateHeaderView(userName, userEmail);
+            }
+        }
+    }
+
+    private void populateHeaderView(TextView userName, TextView userEmail) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            userName.setText(user.getDisplayName());
+            userEmail.setText(user.getEmail());
+        }
+
+
 
     }
 
@@ -89,7 +169,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void selectDrawerItem(MenuItem item) {
         Fragment fragment = null;
-        Class fragmentClass;
+        Class fragmentClass = null;
 
         switch (item.getItemId()) {
             case R.id.nav_home_fragment:
@@ -99,7 +179,8 @@ public class MainActivity extends AppCompatActivity{
                 fragmentClass = AboutFragment.class;
                 break;
             case R.id.nav_exit:
-                finish();
+                finishAffinity();
+                System.exit(0);
 
             default:
                 fragmentClass = HomeFragment.class;

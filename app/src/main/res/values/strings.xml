@@ -17,4 +17,10 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="search_title">Search</string>
     <string name="search_hint">any date or number ex.- 2/9/19 or 7</string>
+    <string name="user_name">User Name</string>
+    <string name="email_address">example@example.com</string>
+    <string name="nav_logout_title">Logout</string>
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">872088839789512</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb872088839789512</string>
 </resources>

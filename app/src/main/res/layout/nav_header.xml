@@ -6,12 +6,28 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
-    android:gravity="bottom">
+    android:gravity="bottom|center_horizontal">
+
+    <ImageView
+        android:id="@+id/userImageView"
+        android:layout_width="96dp"
+        android:src="@drawable/ic_person_black_24dp"
+        android:layout_height="96dp" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/userNameText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Header"
+        android:text="@string/user_name"
         android:textColor="@android:color/white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+    <TextView
+        android:id="@+id/userEmailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email_address"
+        android:textAlignment="center"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"/>
 </LinearLayout>

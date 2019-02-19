@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "939693799405",
+    "firebase_url": "https://newsviewsv02.firebaseio.com",
+    "project_id": "newsviewsv02",
+    "storage_bucket": "newsviewsv02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939693799405:android:d18ec6639c0d92b7",
+        "android_client_info": {
+          "package_name": "com.example.newsviews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939693799405-i4gbjmvqhkvfl10vht753i9ce4s443o1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newsviews",
+            "certificate_hash": "1d97a3d4f66cc643442c1a7107bc72e61efc8274"
+          }
+        },
+        {
+          "client_id": "939693799405-lqpmdj0h65ol4knd94b0jrlrovo5sid4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKecKRZ9HQxrqNZ3jqouVZbV0xbxgkcWk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939693799405-lqpmdj0h65ol4knd94b0jrlrovo5sid4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
