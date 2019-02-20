@@ -7,7 +7,6 @@
         style="@style/CardView.Light"
         app:cardElevation="4dp"
         app:cardCornerRadius="4dp"
-        android:background="@color/com_facebook_button_login_silver_background_color_pressed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

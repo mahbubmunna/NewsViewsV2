@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
     private NewsAdapter mNewsAdapter;
     private NewsRepository newsRepository;
-    private static final String API_SOURCE = "techcrunch";
+    private static final String API_SOURCE = "espn-cric-info";
     private static final String API_KEY = "1d99e842d6ca40c0b249d256d07e463d";
 
     public HomeFragment(){}
