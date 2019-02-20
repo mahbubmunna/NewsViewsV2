@@ -12,4 +12,6 @@
     <dimen name="content_margin">16dp</dimen>
 
     <dimen name="text_email_small">12sp</dimen>
+
+    <dimen name="image_height">200dp</dimen>
 </resources>

@@ -33,6 +33,7 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 import java.util.List;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity{
         //Sets Text for Header views
         navBinding = NavHeaderBinding.bind(mainBinding.navView.getHeaderView(0));
         if (user != null) populateHeaderView(navBinding);
+
 
         //Start the application with default home fragment
         if (savedInstanceState == null) startHomeFragment();
@@ -118,6 +120,8 @@ public class MainActivity extends AppCompatActivity{
                         "Logged in",
                         Toast.LENGTH_SHORT)
                         .show();
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                populateHeaderView(navBinding);
 
                 // ...
             } else {
@@ -129,13 +133,17 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    private void populateHeaderView(NavHeaderBinding headerView) {
+
+    public void populateHeaderView(NavHeaderBinding headerView) {
         if (user != null) {
             try {
                 headerView.userNameText.setText(user.getDisplayName());
                 headerView.userEmailText.setText(user.getEmail());
+                Picasso
+                        .get()
+                        .load(user.getPhotoUrl())
+                        .into(headerView.userImageView);
             } catch (Exception e){
-                //Log.d(TAG, "Munsssssss");
                 e.printStackTrace();
             }
         }
@@ -262,6 +270,7 @@ public class MainActivity extends AppCompatActivity{
 
         return true;
     }
+
 }
 
 

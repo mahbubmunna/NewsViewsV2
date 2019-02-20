@@ -9,6 +9,7 @@ project.ext {
     facebookLogin = "4.40.0"
     retrofit = "2.5.0"
     picasso = "2.71828"
+    recyclerView = "1.1.0-alpha02"
 
 }
 apply plugin: 'com.android.application'
@@ -25,7 +26,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -37,6 +38,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:$project.appcompat"
+    implementation"androidx.recyclerview:recyclerview:$project.recyclerView"
     implementation "androidx.constraintlayout:constraintlayout:$project.constraintLayout"
     implementation "com.google.android.material:material:$project.material"
     implementation "com.google.firebase:firebase-core:$project.firebaseCore"
