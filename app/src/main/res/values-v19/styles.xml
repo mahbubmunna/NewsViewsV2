@@ -7,6 +7,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <!--Translucent status bar-->
         <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
     <style name="AppTheme.Launcher">

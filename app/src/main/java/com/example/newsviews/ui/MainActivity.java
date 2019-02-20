@@ -20,17 +20,16 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.newsviews.R;
 import com.example.newsviews.databinding.ActivityMainBinding;
+import com.example.newsviews.databinding.NavHeaderBinding;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,9 +38,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
+    private final static String TAG = SearchResultsActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 100;
     ActivityMainBinding mainBinding;
+    NavHeaderBinding navBinding;
     private ActionBarDrawerToggle drawerToggle;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,10 @@ public class MainActivity extends AppCompatActivity{
 
         setupDrawerContent(mainBinding.navView);
 
+        //Sets Text for Header views
+        navBinding = NavHeaderBinding.bind(mainBinding.navView.getHeaderView(0));
+        if (user != null) populateHeaderView(navBinding);
+
         //Start the application with default home fragment
         if (savedInstanceState == null) startHomeFragment();
 
@@ -76,6 +82,8 @@ public class MainActivity extends AppCompatActivity{
 
     //Firing up FireBase Auth UI
     private void fireSignUp() {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
             List<AuthUI.IdpConfig> providers = Arrays.asList(
                     new AuthUI.IdpConfig.GoogleBuilder().build(),
                     new AuthUI.IdpConfig.FacebookBuilder()
@@ -89,6 +97,10 @@ public class MainActivity extends AppCompatActivity{
                             .setLogo(R.drawable.news_views_144dp)
                             .build(),
                     RC_SIGN_IN);
+        } else {
+
+        }
+
     }
 
     //Taking back the Result from FireBase Auth UI
@@ -98,12 +110,14 @@ public class MainActivity extends AppCompatActivity{
 
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
-            TextView userName = findViewById(R.id.userNameText);
-            TextView userEmail = findViewById(R.id.userEmailText);
-            ImageView userImage = findViewById(R.id.userImageView);
+
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
-                populateHeaderView(userName, userEmail);
+                Toast.makeText(
+                        this,
+                        "Logged in",
+                        Toast.LENGTH_SHORT)
+                        .show();
 
                 // ...
             } else {
@@ -111,16 +125,19 @@ public class MainActivity extends AppCompatActivity{
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
-                populateHeaderView(userName, userEmail);
             }
         }
     }
 
-    private void populateHeaderView(TextView userName, TextView userEmail) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private void populateHeaderView(NavHeaderBinding headerView) {
         if (user != null) {
-            userName.setText(user.getDisplayName());
-            userEmail.setText(user.getEmail());
+            try {
+                headerView.userNameText.setText(user.getDisplayName());
+                headerView.userEmailText.setText(user.getEmail());
+            } catch (Exception e){
+                //Log.d(TAG, "Munsssssss");
+                e.printStackTrace();
+            }
         }
 
 

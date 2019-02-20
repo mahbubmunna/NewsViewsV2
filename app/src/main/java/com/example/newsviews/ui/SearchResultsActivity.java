@@ -2,20 +2,35 @@ package com.example.newsviews.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.newsviews.R;
+import com.example.newsviews.databinding.ActivitySearchResultBinding;
+import com.example.newsviews.service.model.Number;
+import com.example.newsviews.service.repository.NumberApiService;
+import com.example.newsviews.service.repository.NumberRepository;
 
 public class SearchResultsActivity extends AppCompatActivity {
+    private NumberRepository mNumRepo;
+    private ActivitySearchResultBinding mBinding;
+    private final static String TAG = SearchResultsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_result);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_search_result);
+        mNumRepo = NumberRepository.getInstance(getApplicationContext());
+        mBinding.progressBarSearchView.setVisibility(View.VISIBLE);
+        mBinding.resultText.setVisibility(View.GONE);
 
         handleIntent(getIntent());
     }
@@ -30,8 +45,23 @@ public class SearchResultsActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            TextView textView = findViewById(R.id.searchQuery);
-            textView.setText("You searched for : " + query);
+            final LiveData<Number> number = mNumRepo.getNumberTrivia(query);
+            number.observe(this, new Observer<Number>() {
+                @Override
+                public void onChanged(Number number) {
+                    Log.d(TAG, "Getting Live data through observer");
+                    mBinding.progressBarSearchView.setVisibility(View.GONE);
+                    if (number != null) {
+                        mBinding.resultText.setVisibility(View.VISIBLE);
+                        mBinding.resultText.setText(number.text);
+                    } else {
+                        mBinding.resultText.setVisibility(View.VISIBLE);
+                        mBinding.resultText.setText("Please try again in right way");
+                    }
+                }
+            });
+
+
         }
     }
 
