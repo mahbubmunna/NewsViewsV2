@@ -9,7 +9,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.newsviews.R;
-import com.example.newsviews.databinding.ActivityWebBinding;
 
 public class WebActivity extends AppCompatActivity {
     private static final String TAG = WebActivity.class.getSimpleName();
@@ -18,7 +17,6 @@ public class WebActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-
 
         Log.d(TAG, getIntent().getStringExtra("URL_LINK"));
         WebView mWebView = findViewById(R.id.web_view);

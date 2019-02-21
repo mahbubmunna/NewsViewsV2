@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class HomeFragment extends Fragment implements NewsAdapter.ItemClickListener{
     private FragmentHomeBinding fragmentHomeBinding;
@@ -61,6 +62,15 @@ public class HomeFragment extends Fragment implements NewsAdapter.ItemClickListe
 
         if (((MainActivity)getActivity()).isNetworkConnected()) retrieveNews();
         else showDialog();
+
+        fragmentHomeBinding.refresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mNewsAdapter.setArticlesList(null);
+                fragmentHomeBinding.progressBarHome.setVisibility(View.VISIBLE);
+                retrieveNews();
+            }
+        });
 
         return rootView;
     }
