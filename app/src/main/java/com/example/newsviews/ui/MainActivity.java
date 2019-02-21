@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     //Checks for internet
-    private boolean isNetworkConnected() {
+    public boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;

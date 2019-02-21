@@ -48,6 +48,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$project.retrofit"
     implementation "com.squareup.picasso:picasso:$project.picasso"
     implementation "androidx.lifecycle:lifecycle-extensions:$project.arch"
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.github.medyo:android-about-page:1.2.5'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$project.arch"
 
     testImplementation 'junit:junit:4.12'

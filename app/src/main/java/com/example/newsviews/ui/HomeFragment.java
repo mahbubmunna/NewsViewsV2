@@ -1,5 +1,8 @@
 package com.example.newsviews.ui;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,12 +48,30 @@ public class HomeFragment extends Fragment {
 
         mNewsAdapter = new NewsAdapter();
         fragmentHomeBinding.rvNews.setAdapter(mNewsAdapter);
+        fragmentHomeBinding.progressBarHome.setVisibility(View.VISIBLE);
 
         newsRepository = NewsRepository.getInstance();
 
-        retrieveNews();
+        if (((MainActivity)getActivity()).isNetworkConnected()) retrieveNews();
+        else showDialog();
 
         return rootView;
+    }
+
+    private void showDialog() {
+        //fragmentHomeBinding.progressBarHome.setVisibility(View.GONE);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.no_iternet)
+                .setTitle(R.string.warning_title);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (((MainActivity)getActivity()).isNetworkConnected()) retrieveNews();
+                else showDialog();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void retrieveNews() {
@@ -60,6 +81,7 @@ public class HomeFragment extends Fragment {
             public void onChanged(News news) {
                 Log.d(TAG, "Receiving database update from LiveData");
                 mNewsAdapter.setArticlesList(news.getArticles());
+                fragmentHomeBinding.progressBarHome.setVisibility(View.GONE);
             }
         });
     }
