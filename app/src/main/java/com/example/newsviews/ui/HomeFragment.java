@@ -66,8 +66,10 @@ public class HomeFragment extends Fragment implements NewsAdapter.ItemClickListe
         fragmentHomeBinding.refresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mNewsAdapter.setArticlesList(null);
+                fragmentHomeBinding.refresher.setRefreshing(false);
+                fragmentHomeBinding.rvNews.setVisibility(View.INVISIBLE);
                 fragmentHomeBinding.progressBarHome.setVisibility(View.VISIBLE);
+                mNewsAdapter.setArticlesList(null);
                 retrieveNews();
             }
         });
@@ -98,6 +100,7 @@ public class HomeFragment extends Fragment implements NewsAdapter.ItemClickListe
             public void onChanged(News news) {
                 Log.d(TAG, "Receiving database update from LiveData");
                 mNewsAdapter.setArticlesList(news.getArticles());
+                fragmentHomeBinding.rvNews.setVisibility(View.VISIBLE);
                 fragmentHomeBinding.progressBarHome.setVisibility(View.GONE);
             }
         });
@@ -105,12 +108,12 @@ public class HomeFragment extends Fragment implements NewsAdapter.ItemClickListe
 
     @Override
     public void onItemClickListener(int itemId, String url) {
-        if (mToast != null) {
-            mToast.cancel();
-        }
-        String toastMessage = "Item " + itemId + " Clicked";
-        mToast = Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT);
-        mToast.show();
+//        if (mToast != null) {
+//            mToast.cancel();
+//        }
+//        String toastMessage = "Item " + itemId + " Clicked";
+//        mToast = Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT);
+//        mToast.show();
 
         fireWebShowDialog(url, itemId);
 
