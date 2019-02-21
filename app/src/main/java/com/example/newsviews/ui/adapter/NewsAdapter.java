@@ -2,6 +2,7 @@ package com.example.newsviews.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.newsviews.databinding.NewsItemViewBinding;
@@ -14,11 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
+    public interface ItemClickListener {
+        void onItemClickListener(int itemId, String url);
+    }
+
+    final private ItemClickListener mOnclickListener;
 
     // Member variable to handle item clicks
     private List<Articles> mArticlesList;
-    public NewsAdapter() {
-
+    public NewsAdapter(ItemClickListener itemClickListener) {
+        mOnclickListener = itemClickListener;
     }
     @NonNull
     @Override
@@ -56,11 +62,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return mArticlesList;
     }
 
-    public class NewsViewHolder extends RecyclerView.ViewHolder{
+    public class NewsViewHolder extends RecyclerView.ViewHolder
+    implements View.OnClickListener {
         private final NewsItemViewBinding mNewsBiding;
         public NewsViewHolder(NewsItemViewBinding mNewsBiding) {
             super(mNewsBiding.getRoot());
             this.mNewsBiding = mNewsBiding;
+            mNewsBiding.getRoot().setOnClickListener(this);
         }
 
         void bind(int position) {
@@ -74,9 +82,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                     .into(mNewsBiding.contentImage);
         }
 
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            String url = mArticlesList.get(clickedPosition).getUrl();
+            mOnclickListener.onItemClickListener(clickedPosition, url);
+        }
     }
 
-    public interface ItemClickListener {
-        void onItemClickListener(int itemId);
-    }
+
 }

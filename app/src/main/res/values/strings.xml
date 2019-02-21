@@ -23,7 +23,10 @@
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">872088839789512</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb872088839789512</string>
+
     <string name="no_iternet">Please check your connection</string>
     <string name="warning_title">Connection Error</string>
     <string name="ok">ok</string>
+    <string name="web_message">Select the applcation to open the link</string>
+    <string name="web_title">Select your choice</string>
 </resources>

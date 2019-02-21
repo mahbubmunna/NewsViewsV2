@@ -38,7 +38,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:$project.appcompat"
-    implementation"androidx.recyclerview:recyclerview:$project.recyclerView"
+    implementation "androidx.recyclerview:recyclerview:$project.recyclerView"
     implementation "androidx.constraintlayout:constraintlayout:$project.constraintLayout"
     implementation "com.google.android.material:material:$project.material"
     implementation "com.google.firebase:firebase-core:$project.firebaseCore"
@@ -50,6 +50,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$project.arch"
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.github.medyo:android-about-page:1.2.5'
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$project.arch"
 
     testImplementation 'junit:junit:4.12'
