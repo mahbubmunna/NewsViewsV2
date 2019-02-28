@@ -1,7 +1,6 @@
 package com.example.newsviews.ui;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,9 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.example.newsviews.R;
@@ -61,7 +57,7 @@ public class HomeFragment extends Fragment implements NewsAdapter.ItemClickListe
         newsRepository = NewsRepository.getInstance();
 
         if (((MainActivity)getActivity()).isNetworkConnected()) retrieveNews();
-        else showDialog();
+        else showNetworkError();
 
         fragmentHomeBinding.refresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -77,7 +73,7 @@ public class HomeFragment extends Fragment implements NewsAdapter.ItemClickListe
         return rootView;
     }
 
-    private void showDialog() {
+    private void showNetworkError() {
         //fragmentHomeBinding.progressBarHome.setVisibility(View.GONE);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.no_iternet)
@@ -86,7 +82,7 @@ public class HomeFragment extends Fragment implements NewsAdapter.ItemClickListe
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (((MainActivity)getActivity()).isNetworkConnected()) retrieveNews();
-                        else showDialog();
+                        else showNetworkError();
                     }
                 });
         AlertDialog dialog = builder.create();
@@ -99,21 +95,20 @@ public class HomeFragment extends Fragment implements NewsAdapter.ItemClickListe
             @Override
             public void onChanged(News news) {
                 Log.d(TAG, "Receiving database update from LiveData");
-                mNewsAdapter.setArticlesList(news.getArticles());
-                fragmentHomeBinding.rvNews.setVisibility(View.VISIBLE);
-                fragmentHomeBinding.progressBarHome.setVisibility(View.GONE);
+                if (news != null) {
+                    mNewsAdapter.setArticlesList(news.getArticles());
+                    fragmentHomeBinding.rvNews.setVisibility(View.VISIBLE);
+                    fragmentHomeBinding.progressBarHome.setVisibility(View.GONE);
+                } else {
+                    showNetworkError();
+                }
             }
         });
     }
 
     @Override
     public void onItemClickListener(int itemId, String url) {
-//        if (mToast != null) {
-//            mToast.cancel();
-//        }
-//        String toastMessage = "Item " + itemId + " Clicked";
-//        mToast = Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT);
-//        mToast.show();
+
 
         fireWebShowDialog(url, itemId);
 
