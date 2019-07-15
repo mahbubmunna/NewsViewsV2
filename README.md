@@ -1,3 +1,4 @@
-# News Views
+# Tigers Up
 Api Based News Application.
-MVVM (AAC) Implemeted. ViewModel Skipped becuase App Restrit to Portrait Mode only.
+MVVM (AAC) Implemented. 
+ViewModel Skipped because App restricted to Portrait Mode only.
