@@ -1,6 +1,6 @@
-package com.example.newsviews.service.repository;
+package me.moonss.tigersup.service.repository;
 
-import com.example.newsviews.service.model.Number;
+import me.moonss.tigersup.service.model.Number;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

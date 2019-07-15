@@ -1,6 +1,5 @@
-package com.example.newsviews.ui;
+package me.moonss.tigersup.ui;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +27,7 @@ public class AboutFragment extends Fragment {
 
         View aboutPage = new AboutPage(getActivity())
                 .isRTL(false)
-                .setImage(R.drawable.news_views_144dp)
+                .setImage(R.drawable.app_icon)
                 .addItem(appTitle)
                 .addItem(versionElement)
                 .setDescription(getString(R.string.app_description))

@@ -1,6 +1,6 @@
-package com.example.newsviews.service.repository;
+package me.moonss.tigersup.service.repository;
 
-import com.example.newsviews.service.model.News;
+import me.moonss.tigersup.service.model.News;
 
 
 import retrofit2.Call;

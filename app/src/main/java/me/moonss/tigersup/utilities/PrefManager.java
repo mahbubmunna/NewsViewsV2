@@ -1,4 +1,4 @@
-package com.example.newsviews.utilities;
+package me.moonss.tigersup.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.example.newsviews.ui;
+package me.moonss.tigersup.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,7 +1,6 @@
-package com.example.newsviews.ui;
+package me.moonss.tigersup.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -11,13 +10,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.newsviews.R;
 import com.example.newsviews.databinding.ActivitySearchResultBinding;
-import com.example.newsviews.service.model.Number;
-import com.example.newsviews.service.repository.NumberApiService;
-import com.example.newsviews.service.repository.NumberRepository;
+import me.moonss.tigersup.service.model.Number;
+import me.moonss.tigersup.service.repository.NumberRepository;
 
 public class SearchResultsActivity extends AppCompatActivity {
     private NumberRepository mNumRepo;
@@ -31,6 +28,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         mNumRepo = NumberRepository.getInstance(getApplicationContext());
         mBinding.progressBarSearchView.setVisibility(View.VISIBLE);
         mBinding.resultText.setVisibility(View.GONE);
+
 
         handleIntent(getIntent());
     }

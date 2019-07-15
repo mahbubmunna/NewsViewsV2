@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">NewsViews</string>
+    <string name="app_name">TIGERS UP</string>
     <string name="next">NEXT</string>
     <string name="finish">FINISH</string>
     <string name="skip">SKIP</string>
     <string name="my_name">Mahbub Munna</string>
     <string name="my_word">Hey Dear. I am an android developer. Its a pleasure to meet you</string>
-    <string name="my_view_title">What I Think</string>
-    <string name="my_view_detail">I know you are gonna love me. Thats why I am eager to meet you</string>
-    <string name="app_description">A pet project for Rokomari.com</string>
+    <string name="my_view_title">Cricket News Provider</string>
+    <string name="my_view_detail">Provides news about cricket</string>
+    <string name="app_description">A pet project for Experimental Android Learning</string>
     <string name="skip_button_text">Skip</string>
     <string name="next_button_text">Next</string>
     <string name="nav_menu_home">Home</string>

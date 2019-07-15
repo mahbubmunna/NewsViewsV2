@@ -14,21 +14,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.WebActivity"></activity>
+
         <activity
-            android:name=".ui.SearchResultsActivity"
+            android:name="me.moonss.tigersup.ui.SearchResultsActivity"
+            android:theme="@style/WithActionBarTheme"
+            android:label="Search result"
             android:launchMode="singleTop">
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.moonss.tigersup.ui.NewsDisplayActivity"/>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+
         </activity>
-        <activity android:name=".ui.MainActivity" />
+
+        <activity android:name="me.moonss.tigersup.ui.NewsDisplayActivity" />
+
         <activity
-            android:name=".ui.SplashScreenActivity"
+            android:name="me.moonss.tigersup.ui.SplashScreenActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,6 +45,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.newsviews.ui.adapter;
+package me.moonss.tigersup.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.newsviews.databinding.NewsItemViewBinding;
-import com.example.newsviews.service.model.Articles;
+import me.moonss.tigersup.service.model.Articles;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

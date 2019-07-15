@@ -1,4 +1,4 @@
-package com.example.newsviews.service.model;
+package me.moonss.tigersup.service.model;
 
 public class Number {
     public String text;

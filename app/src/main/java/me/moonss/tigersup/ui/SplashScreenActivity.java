@@ -1,4 +1,4 @@
-package com.example.newsviews.ui;
+package me.moonss.tigersup.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,12 +12,18 @@ import android.widget.TextView;
 
 import com.example.newsviews.R;
 import com.example.newsviews.databinding.ActivitySplashScreenBinding;
-import com.example.newsviews.utilities.PrefManager;
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+
+import me.moonss.tigersup.utilities.PrefManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class SplashScreenActivity extends AppCompatActivity implements View.OnClickListener {
     private SplashScreenAdapter splashScreenAdapter;
@@ -25,6 +31,7 @@ public class SplashScreenActivity extends AppCompatActivity implements View.OnCl
     private PrefManager prefManager;
     private int currentItem;
     ActivitySplashScreenBinding mBinding;
+    private static final int RC_SIGN_IN = 100;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,8 +71,53 @@ public class SplashScreenActivity extends AppCompatActivity implements View.OnCl
     //Main Screen Launcher
     private void launchMainScreen() {
         prefManager.setIsFirstLaunch(false);
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            startNewsDisplayActivity();
+        } else {
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                    new AuthUI.IdpConfig.GoogleBuilder().build(),
+                    new AuthUI.IdpConfig.FacebookBuilder()
+                            .build());
+
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(providers)
+                            .setTheme(R.style.AppTheme)
+                            .setLogo(R.drawable.app_icon)
+                            .build(),
+                    RC_SIGN_IN);
+        }
+
+        //finish();
+    }
+
+    private void startNewsDisplayActivity() {
+        Intent intent = new Intent(this, NewsDisplayActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    //Taking back the Result from FireBase Auth UI
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                startNewsDisplayActivity();
+
+                // ...
+            } else {
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+                // ...
+            }
+        }
     }
 
     //Setting onClickListener

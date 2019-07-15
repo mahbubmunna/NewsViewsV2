@@ -1,11 +1,8 @@
-package com.example.newsviews.service.repository;
+package me.moonss.tigersup.service.repository;
 
-import android.content.Context;
 import android.util.Log;
 
-import com.example.newsviews.service.model.News;
-
-import java.util.List;
+import me.moonss.tigersup.service.model.News;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
